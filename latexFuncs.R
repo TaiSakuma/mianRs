@@ -67,12 +67,7 @@ pdf.latex <- function (object, prlog = FALSE, nomargins = FALSE, width = 5.5, he
     #    infi, "\\end{table}\\end{document}\n", file = tmptex, sep = "\n")
     cat("\\documentclass[12pt]{report}\\usepackage{amsmath}\\usepackage{kpfonts}\\usepackage[T1]{fontenc}", sty, "\\begin{document}\\pagestyle{empty}", 
         infi, "\\end{document}\n", file = tmptex, sep = "\n")
-    sc <- if (under.unix) {
-        "&&"
-    }
-    else {
-        "&"
-    }
+    sc <- "&&"
     sys(paste("cd", shQuote(tempdir()), sc, optionsCmds("pdflatex"), 
         "-interaction=scrollmode", shQuote(tmp)), output = FALSE)
     sys(paste("mv -f ", tmp, '.pdf ', pdffilename, sep = ''))
