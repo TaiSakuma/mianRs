@@ -8,28 +8,9 @@ library('methods', warn.conflicts = FALSE, quietly = TRUE)
 library('vcd', warn.conflicts = FALSE, quietly = TRUE)
 library('colorspace', warn.conflicts = FALSE, quietly = TRUE)
 
-source('quartz_save.R')
 
 ##____________________________________________________________________________||
 readArgs <- parse('drawReadArgs.R')
-
-##____________________________________________________________________________||
-call.quartz.save <- function(file)
-    {
-      if(arg.png)
-        {
-          png <- paste(file, '.png', sep = '')
-          print(png)
-          quartz.save(png)
-        }
-
-      if(arg.pdf)
-        {
-          pdf <- paste(file, '.pdf', sep = '')
-          print(pdf)
-          quartz.save(pdf, type = 'pdf')
-        }
-    }
 
 ##____________________________________________________________________________||
 mk.fig.id <- function(base = NULL, sub = NULL)
@@ -58,11 +39,27 @@ mk.fig.id <- function(base = NULL, sub = NULL)
   }
 
 ##____________________________________________________________________________||
-print.figure <- function(trellis, fig.id)
+print.figure <- function(trellis, fig.id,
+                         width = 4, height = 4,
+                         theme = lattice.getOption("default.theme"))
   {
-    if(!arg.title) trellis <- update(trellis, main = NULL)
-    print(trellis)
-    call.quartz.save(paste(arg.outdir, '/', fig.id, sep = ''))
+    filepath_noext <- file.path(arg.outdir, fig.id)
+    if(arg.pdf)
+      {
+        filepath <- paste(filepath_noext, 'pdf', sep = '.')
+        print(filepath)
+        trellis.device(device = pdf, file = filepath, theme = theme, width = width, height = height)
+        print(trellis)
+      }
+
+    if(arg.png)
+      {
+        filepath <- paste(filepath_noext, 'png', sep = '.')
+        print(filepath)
+        trellis.device(device = png, file = filepath, theme = theme, width = width, height = height, units = 'in', res = 300)
+        print(trellis)
+      }
+
   }
 ##____________________________________________________________________________||
 log10.y.labels <- function(y.at)
