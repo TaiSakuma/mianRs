@@ -9,7 +9,6 @@ library('vcd', warn.conflicts = FALSE, quietly = TRUE)
 library('colorspace', warn.conflicts = FALSE, quietly = TRUE)
 
 source('quartz_save.R')
-source('drawThemes.R')
 
 ##____________________________________________________________________________||
 readArgs <- parse('drawReadArgs.R')
