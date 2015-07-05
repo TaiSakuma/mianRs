@@ -9,10 +9,7 @@
 ## 1: parse this script
 ## readArgs <- parse('drawReadArgs.R')
 ##
-## 2: chose a theme (optional)
-## theme.default <- 'theme.economist'
-##
-## 3: evaluate readArgs
+## 2: evaluate readArgs
 ## eval(readArgs)
 ##
 
@@ -26,7 +23,6 @@ opts_default <- list(
              list(option = 'arg.outdir', default = 'fig'),
              list(option = 'arg.pdf', default = TRUE),
              list(option = 'arg.png', default = TRUE),
-             list(option = 'arg.theme', default = theme.default),
              list(option = 'arg.id',    default = NULL),
              list(option = 'arg.title',    default = TRUE),
              list(option = 'arg.transparent', default = FALSE)
@@ -34,7 +30,7 @@ opts_default <- list(
 
 
 options = sapply(opts_default, function(x) x[['option']])
-## i.e., c("arg.outdir", "arg.pdf", "arg.png", "arg.theme", "arg.id", "arg.title", "arg.transparent")
+## i.e., c("arg.outdir", "arg.pdf", "arg.png", "arg.id", "arg.title", "arg.transparent")
 
 
 ##__________________________________________________________________||
@@ -80,12 +76,5 @@ show.options <- function()
       }
   }
 ## show.options()
-
-##__________________________________________________________________||
-if(length(dev.list()) == 0)  quartz(width = 4, height = 4)
-trellis.par.set(theme = arg.theme)
-if(arg.transparent) trellis.par.set(background = list(col = 'transparent'))
-# show.settings()
-
 
 ##__________________________________________________________________||
