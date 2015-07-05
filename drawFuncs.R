@@ -57,7 +57,7 @@ print.figure <- function(trellis, fig.id,
       {
         filepath <- paste(filepath_noext, 'png', sep = '.')
         print(filepath)
-        trellis.device(device = png, file = filepath, theme = theme, width = width, height = height, units = 'in', res = 300)
+        suppressWarnings(trellis.device(device = png, file = filepath, theme = theme, width = width, height = height, units = 'in', res = 300, bg = "transparent"))
         print(trellis)
         dev.off()
       }
