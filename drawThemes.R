@@ -1,4 +1,4 @@
-# Copyright (C) 2011 Tai Sakuma <sakuma@fnal.gov>
+# Tai Sakuma <sakuma@cern.ch>
 
 ##____________________________________________________________________________||
 theme.size <- function()

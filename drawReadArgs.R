@@ -25,7 +25,8 @@ opts_default <- list(
              list(option = 'arg.png', default = TRUE),
              list(option = 'arg.id',    default = NULL),
              list(option = 'arg.title',    default = TRUE),
-             list(option = 'arg.transparent', default = FALSE)
+             list(option = 'arg.transparent', default = FALSE),
+             list(option = 'arg.force', default = FALSE)
              )
 
 

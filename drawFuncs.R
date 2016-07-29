@@ -1,11 +1,11 @@
-# Tai Sakuma <sakuma@fnal.gov>
+# Tai Sakuma <sakuma@cern.ch>
 
 library('lattice', warn.conflicts = FALSE, quietly = TRUE)
 library('latticeExtra', warn.conflicts = FALSE, quietly = TRUE)
 library('grid', warn.conflicts = FALSE, quietly = TRUE)
 library('RColorBrewer', warn.conflicts = FALSE, quietly = TRUE)
 library('methods', warn.conflicts = FALSE, quietly = TRUE)
-library('vcd', warn.conflicts = FALSE, quietly = TRUE)
+# library('vcd', warn.conflicts = FALSE, quietly = TRUE)
 library('colorspace', warn.conflicts = FALSE, quietly = TRUE)
 
 
@@ -21,21 +21,34 @@ mk.fig.id <- function(base = NULL, sub = NULL)
         bn <- basename(substring(argv[grep("--file=", argv)], 8))
         fxxx <- sub('.R', '', bn)
         fxxx <- strsplit(fxxx, '_')[[1]][2]
-
-        wd <- getwd()
-        wd.bn <- basename(wd)
-        sxxxx <- strsplit(wd.bn, '_')[[1]][1]
-
-        wd.parent.bn <- basename(dirname(wd))
-        cxxxxxx <- strsplit(wd.parent.bn, '_')[[1]][1]
-
-        paste(cxxxxxx, sxxxx, fxxx, sep = '_')
       }
-    
+
     base <- if(is.null(base)) mk.fig.id.base() else base
     fig.id <- if(is.null(sub)) base else paste(base, sub, sep = '_')
     fig.id <- if(is.null(arg.id)) fig.id else paste(fig.id, arg.id, sep = '_')
     fig.id
+  }
+
+##____________________________________________________________________________||
+print.figure.pdf <- function(trellis, path,
+                         width = 4, height = 4,
+                         theme = lattice.getOption("default.theme"))
+  {
+    print(path)
+    trellis.device(device = pdf, file = path, theme = theme, width = width, height = height)
+    print(trellis)
+    dev.off()
+  }
+
+##____________________________________________________________________________||
+print.figure.png <- function(trellis, path,
+                         width = 4, height = 4,
+                         theme = lattice.getOption("default.theme"))
+  {
+    print(path)
+    suppressWarnings(trellis.device(device = png, file = path, theme = theme, width = width, height = height, units = 'in', res = 300, bg = "transparent"))
+    print(trellis)
+    dev.off()
   }
 
 ##____________________________________________________________________________||
