@@ -1,5 +1,8 @@
 # Tai Sakuma <sakuma@cern.ch>
 
+library(readr)
+library(stringr)
+
 ##__________________________________________________________________||
 custom_read_table <- function(file)
 {
