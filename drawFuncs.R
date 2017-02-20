@@ -60,7 +60,7 @@ print.figure <- function(trellis, fig.id,
     if(arg.pdf)
       {
         filepath <- paste(filepath_noext, 'pdf', sep = '.')
-        print(filepath)
+        writeLines(filepath)
         trellis.device(device = pdf, file = filepath, theme = theme, width = width, height = height)
         print(trellis)
         dev.off()
@@ -69,7 +69,7 @@ print.figure <- function(trellis, fig.id,
     if(arg.png)
       {
         filepath <- paste(filepath_noext, 'png', sep = '.')
-        print(filepath)
+        writeLines(filepath)
         suppressWarnings(trellis.device(device = png, file = filepath, theme = theme, width = width, height = height, units = 'in', res = 300, bg = "transparent"))
         print(trellis)
         dev.off()
