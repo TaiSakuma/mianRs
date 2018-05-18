@@ -3,6 +3,8 @@
 library(readr)
 library(stringr)
 
+library(gtools) # for mixedsort()
+
 ##__________________________________________________________________||
 custom_read_table <- function(file)
 {
@@ -40,6 +42,7 @@ custom_read_table <- function(file)
   col_character <- names(col_types)[col_types == 'character']
   for(col in col_character) {
     tbl[[col]] <- factor(tbl[[col]])
+    tbl[[col]] <- factor(tbl[[col]], levels = mixedsort(levels(tbl[[col]])))
   }
 
   tbl
