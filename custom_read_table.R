@@ -33,9 +33,14 @@ custom_read_table <- function(file)
     col_names = col_names
   )
 
-  tbl <- read_fwf(file, col_positions = col_positions, col_types = cols(), skip = 1)
-  ## col_types = cols() suppresses the message "Parsed with column ...""
-  ## skip = 1 skips the header, the first line
+  tbl <- read_fwf(file, col_positions = col_positions, col_types = cols(), skip = 1, guess_max = Inf)
+  ## - col_types = cols() suppresses the message "Parsed with column
+  ##   ...""
+  ## - skip = 1 skips the header, the first line
+  ## - guess_max = Inf prevents float from incorrectly being
+  ##   determined as int, which happens when a float column starts
+  ##   with whole numbers without ".0", e.g., 1, 1, 3, 3.2, 5.6.
+  ##   ** this option is slow
 
   ## convert 'character' to 'factor'
   col_types <- sapply(tbl, typeof)
